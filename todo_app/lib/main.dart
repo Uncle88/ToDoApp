@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/presentation/pages/splash_page.dart';
 
-void main() {
-  runApp(const MainApp());
-}
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+void main() => runApp(const SplashPage());
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
-  }
-}
+// void main() {
+//   runZonedGuarded(() async {
+//     runApp(
+//       const RestartWidget(
+//         child: SplashPage(),
+//       ),
+//     );
+//   }, (error, stack) => {});
+
+//   SystemChrome.setPreferredOrientations([
+//     DeviceOrientation.portraitUp,
+//     DeviceOrientation.portraitDown,
+//   ]);
+//   SystemChrome.setSystemUIOverlayStyle(
+//     const SystemUiOverlayStyle(systemNavigationBarColor: Colors.white),
+//   );
+// }
+
+// void runZonedGuarded(Future<Null> Function() param0, Function(dynamic error, dynamic stack) param1) {}
