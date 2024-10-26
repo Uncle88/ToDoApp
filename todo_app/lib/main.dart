@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/presentation/pages/splash_page.dart';
 
-
 void main() => runApp(const SplashPage());
 
 // void main() {
