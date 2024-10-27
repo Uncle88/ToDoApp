@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MainPageWidget();
+    return const HomePageWidget();
   }
 }
 
-class MainPageWidget extends StatefulWidget {
-  const MainPageWidget({super.key});
+class HomePageWidget extends StatefulWidget {
+  const HomePageWidget({super.key});
 
   @override
-  State<MainPageWidget> createState() => _MainPageWidgetState();
+  State<HomePageWidget> createState() => _HomePageWidgetState();
 }
 
-class _MainPageWidgetState extends State<MainPageWidget> {
+class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Main Page'),),
+    return const Center(
+      child: ColoredBox(
+          color: Colors.green,
+          child: Text(
+            "Home page",
+          )),
     );
   }
 }

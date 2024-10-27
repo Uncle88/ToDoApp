@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/presentation/pages/splash_page.dart';
 
-void main() => runApp(const SplashPage());
+void main() {
+  runApp(const MyApp());
+}
 
-// void main() {
-//   runZonedGuarded(() async {
-//     runApp(
-//       const RestartWidget(
-//         child: SplashPage(),
-//       ),
-//     );
-//   }, (error, stack) => {});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-//   SystemChrome.setPreferredOrientations([
-//     DeviceOrientation.portraitUp,
-//     DeviceOrientation.portraitDown,
-//   ]);
-//   SystemChrome.setSystemUIOverlayStyle(
-//     const SystemUiOverlayStyle(systemNavigationBarColor: Colors.white),
-//   );
-// }
-
-// void runZonedGuarded(Future<Null> Function() param0, Function(dynamic error, dynamic stack) param1) {}
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        useMaterial3: true,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Your own ToDo list',
+          ),
+        ),
+        body: const SplashPage(),
+      ),
+    );
+  }
+}
