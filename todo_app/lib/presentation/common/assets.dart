@@ -1,4 +1,3 @@
-
 // ignore_for_file: constant_identifier_names
 
 class Assets {
@@ -12,6 +11,9 @@ class Assets {
   static const String _rootAnimations = '${_root}animations/';
 
   // Animations
-  static const String splashAnimation = '${_rootAnimations}splash_animation$_JSON';
+  static const String splashAnimation =
+      '${_rootAnimations}splash_animation$_JSON';
 
+  // Splash
+  static const String appLogoIcon = '${_rootIcons}app_logo_icon$_SVG';
 }
