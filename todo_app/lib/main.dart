@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/presentation/pages/splash_page.dart';
+import 'package:todo_app/presentation/pages/splash/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,13 +15,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Your own ToDo list',
-          ),
+      home: const Scaffold(
+        body: SafeArea(
+          child: SplashPage(),
         ),
-        body: const SplashPage(),
       ),
     );
   }
