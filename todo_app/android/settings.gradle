@@ -27,13 +27,13 @@ def properties = new Properties()
         //apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
 
 
-    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+    // includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
 
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
+    // repositories {
+    //     google()
+    //     mavenCentral()
+    //     gradlePluginPortal()
+    // }
 //}
 
 // plugins {
