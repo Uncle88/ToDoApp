@@ -12,17 +12,15 @@ variables:
 
 steps:
 
+
 - script: |
-        git clone --branch $(FlutterVersionTag) https://github.com/flutter/flutter.git
-        export PATH="$PATH:`pwd`/flutter/bin"
-        echo "##vso[task.setvariable variable=JAVA_HOME]$(JavaSdkDirectory)"
-        export JAVA_HOME=$(JavaSdkDirectory)
-        echo "##vso[task.setvariable variable=PATH]$(JavaSdkDirectory)/bin:$PATH"
-        export PATH="$PATH:$(JavaSdkDirectory)/bin"
-        flutter precache
-        yes | flutter doctor --android-licenses
-        flutter doctor -v
-	displayName: 'Install Flutter'
+    git clone https://github.com/flutter/flutter.git -b stable $(flutterSdkPath)
+    echo "##vso[task.prependpath]$(flutterSdkPath)/bin"
+    flutter --version
+  displayName: 'Install Flutter SDK'
+
+- script: flutter doctor -v
+  displayName: 'Run Flutter Doctor'
 
 
 - script: |
