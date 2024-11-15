@@ -14,6 +14,13 @@ steps:
     addToPath: true
 
 - script: |
+    echo "Agent Tools Directory: $(Agent.ToolsDirectory)"
+    echo "Flutter SDK Path: $(flutterSdkPath)"
+    ls $(flutterSdkPath)
+    flutter --version
+  displayName: 'Debug Flutter SDK Installation'
+
+- script: |
     # Install Flutter SDK
     git clone https://github.com/flutter/flutter.git -b stable $(flutterSdkPath)
     echo "##vso[task.prependpath]$(flutterSdkPath)/bin"
@@ -24,3 +31,9 @@ steps:
     flutter pub get
     flutter build apk # Or `flutter build ios` for iOS
   displayName: 'Build Flutter App'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: 'build/app/outputs/flutter-apk/' # Path to the APK/IPA file
+    artifact: 'FlutterApp'
+
