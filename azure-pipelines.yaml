@@ -1,13 +1,25 @@
 trigger:
 - dev # Replace 'main' with your default branch name if different
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 variables:
   flutterSdkPath: $(Agent.ToolsDirectory)/flutter
 
+pool:
+  vmImage: 'ubuntu-latest'
+
 steps:
+
+- script: |
+    git clone https://github.com/flutter/flutter.git -b stable $(flutterSdkPath)
+    echo "##vso[task.prependpath]$(flutterSdkPath)/bin"
+    flutter --version
+  displayName: 'Install Flutter SDK'
+
+- script: |
+    echo $PATH
+    which flutter
+  displayName: 'Verify Flutter in PATH'
+
 
 - script: |
     sudo apt-get update
@@ -15,20 +27,11 @@ steps:
   displayName: 'Install Dependencies'
 
 
-- script: flutter clean
-  displayName: 'Clean Workspace'
-
-- script: |
-    # Install Flutter SDK
-    git clone https://github.com/flutter/flutter.git -b stable $(flutterSdkPath)
-    echo "##vso[task.prependpath]$(flutterSdkPath)/bin"
-    flutter --version
-  displayName: 'Install Flutter SDK'
-
 - script: |
     flutter pub get
-    flutter build apk # Or `flutter build ios` for iOS
+    flutter build apk --release
   displayName: 'Build Flutter App'
+
 
 - task: PublishPipelineArtifact@1
   inputs:
