@@ -20,12 +20,12 @@ steps:
   displayName: 'Install Dependencies'
 
 
-- script: |
-    echo "Agent Tools Directory: $(Agent.ToolsDirectory)"
-    echo "Flutter SDK Path: $(flutterSdkPath)"
-    ls $(flutterSdkPath)
-    flutter --version
-  displayName: 'Debug Flutter SDK Installation'
+#- script: |
+#    echo "Agent Tools Directory: $(Agent.ToolsDirectory)"
+#    echo "Flutter SDK Path: $(flutterSdkPath)"
+#    ls $(flutterSdkPath)
+#    flutter --version
+#  displayName: 'Debug Flutter SDK Installation'
 
 - script: |
     # Install Flutter SDK
