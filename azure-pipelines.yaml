@@ -14,16 +14,13 @@ steps:
 
 
 - script: |
-    echo $PATH
-    which flutter
-  displayName: 'Verify Flutter in PATH'
-
-
-- script: |
     git clone https://github.com/flutter/flutter.git -b stable $(flutterSdkPath)
     echo "##vso[task.prependpath]$(flutterSdkPath)/bin"
     flutter --version
   displayName: 'Install Flutter SDK'
+
+- script: flutter doctor -v
+  displayName: 'Run Flutter Doctor'
 
 
 - script: |
