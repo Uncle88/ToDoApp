@@ -1,42 +1,27 @@
 trigger:
-- dev # Replace 'main' with your default branch name if different
-
+- dev # Adjust branch name as necessary
 
 pool:
   vmImage: 'ubuntu-latest'
 
-
 variables:
   flutterSdkPath: $(Agent.ToolsDirectory)/flutter
-
+  displayName: 'flutterSdkPath : $(flutterSdkPath)'
 
 steps:
-
-
 - script: |
     git clone https://github.com/flutter/flutter.git -b stable $(flutterSdkPath)
     echo "##vso[task.prependpath]$(flutterSdkPath)/bin"
     flutter --version
   displayName: 'Install Flutter SDK'
 
-- script: flutter doctor -v
-  displayName: 'Run Flutter Doctor'
-
-
-- script: |
-    sudo apt-get update
-    sudo apt-get install -y git curl python3
-  displayName: 'Install Dependencies'
-
-
 - script: |
     flutter pub get
     flutter build apk --release
-  displayName: 'Build Flutter App'
-
+  displayName: 'Build Flutter APK'
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: 'build/app/outputs/flutter-apk/' # Path to the APK/IPA file
+    targetPath: 'build/app/outputs/flutter-apk/'
     artifact: 'FlutterApp'
-
+  displayName: 'Publish APK Artifact'
