@@ -13,6 +13,14 @@ stages:
     displayName: Android
     steps: 
 
+
+    - task: FlutterInstall@0
+      displayName: "Install Flutter SDK"
+      inputs:
+        mode: 'auto'
+        channel: 'stable'
+        version: 'latest'
+
     # replace "key.properties" with your secure file name
     - task: DownloadSecureFile@1
       name: keyprop
@@ -38,12 +46,6 @@ stages:
           
           echo "key.properties copied to $(Build.SourcesDirectory)/android/key.properties"
           echo "key.jks copied to $(Build.SourcesDirectory)/android/app/key.jks"
-    - task: FlutterInstall@0
-      displayName: "Install Flutter SDK"
-      inputs:
-        mode: 'auto'
-        channel: 'stable'
-        version: 'latest'
 
     - task: FlutterCommand@0
       displayName: "Run Flutter diagnostics"
@@ -88,6 +90,14 @@ stages:
   - job: iOSJob
     displayName: iOS
     steps: 
+
+        
+    - task: FlutterInstall@0
+      displayName: "Install Flutter SDK"
+      inputs:
+        mode: 'auto'
+        channel: 'stable'
+        version: 'latest'
           
     # replace "iosKey" and "yourPwd" with your secure file name and password
     - task: InstallAppleCertificate@2
@@ -103,13 +113,6 @@ stages:
       inputs:
         provisioningProfileLocation: 'secureFiles'
         provProfileSecureFile: 'ios_Profile.mobileprovision'
-        
-    - task: FlutterInstall@0
-      displayName: "Install Flutter SDK"
-      inputs:
-        mode: 'auto'
-        channel: 'stable'
-        version: 'latest'
 
     - task: FlutterCommand@0
       displayName: "Run Flutter diagnostics"
