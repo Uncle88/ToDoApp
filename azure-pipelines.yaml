@@ -12,13 +12,7 @@ variables:
 
 steps:
 
-
-  - task: Bash@3
-    name: InstallFlutter
-    displayName: 'Install Flutter'
-    inputs:
-      targetType: 'inline'
-      script: |
+- script: |
         git clone --branch $(FlutterVersionTag) https://github.com/flutter/flutter.git
         export PATH="$PATH:`pwd`/flutter/bin"
         echo "##vso[task.setvariable variable=JAVA_HOME]$(JavaSdkDirectory)"
@@ -28,6 +22,7 @@ steps:
         flutter precache
         yes | flutter doctor --android-licenses
         flutter doctor -v
+	displayName: 'Install Flutter'
 
 
 - script: |
