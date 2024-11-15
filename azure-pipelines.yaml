@@ -9,23 +9,14 @@ variables:
 
 steps:
 
-#- task: UsePythonVersion@0
-#  inputs:
-#    versionSpec: '3.x' # Flutter needs Python for some dependencies
-#    addToPath: true
-
 - script: |
     sudo apt-get update
     sudo apt-get install -y git curl python3
   displayName: 'Install Dependencies'
 
 
-#- script: |
-#    echo "Agent Tools Directory: $(Agent.ToolsDirectory)"
-#    echo "Flutter SDK Path: $(flutterSdkPath)"
-#    ls $(flutterSdkPath)
-#    flutter --version
-#  displayName: 'Debug Flutter SDK Installation'
+- script: flutter clean
+  displayName: 'Clean Workspace'
 
 - script: |
     # Install Flutter SDK
