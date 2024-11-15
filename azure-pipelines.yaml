@@ -9,23 +9,26 @@ variables:
 
 steps:
 - script: |
-      brew install --cask flutter
-  displayName: 'brew install Flutter SDK'
-
-
-- script: |
     sudo apt-get update
     sudo apt-get install -y git unzip xz-utils curl
+  displayName: 'Install Dependencies'
+
+- script: |
     git clone https://github.com/flutter/flutter.git -b stable $(flutterSdkPath)
     echo "##vso[task.prependpath]$(flutterSdkPath)/bin"
     flutter --version
   displayName: 'Install Flutter SDK'
 
 - script: flutter doctor -v
-  displayName: 'Check Flutter Installation'
+  displayName: 'Verify Flutter Installation'
 
 - script: |
     flutter pub get
     flutter build apk --release
   displayName: 'Build Flutter APK'
 
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: 'build/app/outputs/flutter-apk/'
+    artifact: 'FlutterApp'
+  displayName: 'Publish Build Artifact'
