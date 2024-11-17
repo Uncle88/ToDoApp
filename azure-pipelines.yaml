@@ -8,19 +8,23 @@ variables:
   flutterSdkPath: $(Agent.ToolsDirectory)/flutter
 
 steps:
-- script: |
-    git clone https://github.com/flutter/flutter.git -b stable $(flutterSdkPath)
-    echo "##vso[task.prependpath]$(flutterSdkPath)/bin"
-    flutter --version
-  displayName: 'Install Flutter SDK'
 
-- script: |
-    flutter pub get
-    flutter build apk --release
-  displayName: 'Build Flutter APK'
+- task: Hey24sheep.flutter.flutter-install.FlutterInstall@0
+  displayName: 'Flutter Install'
 
-- task: PublishPipelineArtifact@1
+
+- task: Hey24sheep.flutter.flutter-build.FlutterBuild@0
+  displayName: 'Flutter Build mobile'
   inputs:
-    targetPath: 'build/app/outputs/flutter-apk/'
-    artifact: 'FlutterApp'
-  displayName: 'Publish APK Artifact'
+    target: mobile
+
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactStagingDirectory)'
+  inputs:
+    SourceFolder: build/mobile
+    TargetFolder: '$(build.artifactStagingDirectory)'
+
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
