@@ -25,11 +25,14 @@ stages:
         sudo apt-get install -y git unzip xz-utils curl
       displayName: 'Install Dependencies'
 
-    - script: |
-      - task: Hey24sheep.flutter.flutter-install.FlutterInstall@0
-  	inputs:
-   	 channel: 'stable'
-        displayName: 'Install Flutter SDK'
+- task: Bash@3
+  displayName: 'Install Flutter SDK'
+  inputs:
+    targetType: 'inline'
+    script: |
+      git clone https://github.com/flutter/flutter.git -b stable $FLUTTER_PATH
+      echo "##vso[task.prependpath]$FLUTTER_PATH/bin"
+      flutter --version
 
     - script: |
         flutter pub get
