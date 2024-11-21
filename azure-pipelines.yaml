@@ -26,10 +26,10 @@ stages:
       displayName: 'Install Dependencies'
 
     - script: |
-        git clone https://github.com/flutter/flutter.git -b stable $(Agent.ToolsDirectory)/flutter
-        echo "##vso[task.prependpath]$(Agent.ToolsDirectory)/flutter/bin"
-        flutter --version
-      displayName: 'Install Flutter SDK'
+      - task: Hey24sheep.flutter.flutter-install.FlutterInstall@0
+  	inputs:
+   	 channel: 'stable'
+        displayName: 'Install Flutter SDK'
 
     - script: |
         flutter pub get
