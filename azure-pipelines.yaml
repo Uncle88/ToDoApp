@@ -35,5 +35,4 @@ steps:
       pathToPublish: 'build/app/outputs/flutter-apk'
       artifactName: 'dev-apk'
       artifactType: Container
-    condition: succeededOrFailed()
     displayName: 'Publish Development APK'
