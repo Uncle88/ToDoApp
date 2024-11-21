@@ -1,38 +1,43 @@
 trigger:
- branches:
-  include:
-   - dev # Adjust branch name as necessary
+- dev
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-latest' # Default pool; overridden per job.
 
-#variables:
-#flutterSdkPath: $(Agent.ToolsDirectory)/flutter
+stages:
+- stage: Build
+  displayName: 'Build Flutter App'
+  jobs:
 
-steps:
+  # Android Build Job
+  - job: AndroidBuild
+    displayName: 'Build Android APK'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: UsePythonVersion@0 # Ensure Python is installed
+      inputs:
+        versionSpec: '3.x'
+        addToPath: true
 
-# Install flutter
-- task: Hey24sheep.flutter.flutter-install.FlutterInstall@0
-  inputs:
-   channel: 'stable'
-   displayName: 'Flutter Install'
+    - script: |
+        sudo apt-get update
+        sudo apt-get install -y git unzip xz-utils curl
+      displayName: 'Install Dependencies'
 
+    - script: |
+        git clone https://github.com/flutter/flutter.git -b stable $(Agent.ToolsDirectory)/flutter
+        echo "##vso[task.prependpath]$(Agent.ToolsDirectory)/flutter/bin"
+        flutter --version
+      displayName: 'Install Flutter SDK'
 
-# Build Development APK
-- task: Hey24sheep.flutter.flutter-build.FlutterBuild@0
-  displayName: 'Flutter Build mobile'
-  inputs:
-      target: 'apk'
-      projectDirectory: '.'
-      entryPoint: "lib/main.dart"
-      buildName: 'dev-apk'
-      iosCodesign: false
+    - script: |
+        flutter pub get
+        flutter build apk --release
+      displayName: 'Build APK'
 
-
-# Publish Development APK
-- task: PublishBuildArtifacts@1
-  inputs:
-      pathToPublish: 'build/app/outputs/flutter-apk'
-      artifactName: 'dev-apk'
-      artifactType: Container
-    displayName: 'Publish Development APK'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: 'build/app/outputs/flutter-apk/'
+        artifact: 'AndroidAPK'
+      displayName: 'Publish Android APK Artifact'
