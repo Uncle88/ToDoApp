@@ -1,0 +1,39 @@
+trigger:
+ branches:
+  include:
+   - dev # Adjust branch name as necessary
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+#variables:
+#flutterSdkPath: $(Agent.ToolsDirectory)/flutter
+
+steps:
+
+# Install flutter
+- task: Hey24sheep.flutter.flutter-install.FlutterInstall@0
+  inputs:
+   channel: 'stable'
+   displayName: 'Flutter Install'
+
+
+# Build Development APK
+- task: Hey24sheep.flutter.flutter-build.FlutterBuild@0
+  displayName: 'Flutter Build mobile'
+  inputs:
+      target: 'apk'
+      projectDirectory: '.'
+      entryPoint: "lib/main.dart"
+      buildName: 'dev-apk'
+      iosCodesign: false
+
+
+# Publish Development APK
+- task: PublishBuildArtifacts@1
+  inputs:
+      pathToPublish: 'build/app/outputs/flutter-apk'
+      artifactName: 'dev-apk'
+      artifactType: Container
+    condition: succeededOrFailed()
+    displayName: 'Publish Development APK'
