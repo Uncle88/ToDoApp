@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:todo_app/presentation/common/app_colors.dart';
-import 'package:todo_app/presentation/common/assets.dart';
-import 'package:todo_app/presentation/extensions/iterable_extensions.dart';
-import 'package:todo_app/presentation/widgets/list_action_widget.dart';
-import 'package:todo_app/presentation/widgets/list_item_widget.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -26,78 +21,58 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightGrayishYellow,
-      body: Container(
-        margin: const EdgeInsets.all(16),
-        height: MediaQuery.sizeOf(context).height,
-
-        //Mock
-        //Will be updated with better UI in future
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: const <Widget>[
-            ListTile(
-              leading: Icon(Icons.map),
-              title: Text('Map'),
-            ),
-            ListTile(
-              leading: Icon(Icons.photo_album),
-              title: Text('Album'),
-            ),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('Phone'),
-            ),
-            ListTile(
-              leading: Icon(Icons.map),
-              title: Text('Map'),
-            ),
-            ListTile(
-              leading: Icon(Icons.photo_album),
-              title: Text('Album'),
-            ),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('Phone'),
-            ),
-            ListTile(
-              leading: Icon(Icons.map),
-              title: Text('Map'),
-            ),
-            ListTile(
-              leading: Icon(Icons.photo_album),
-              title: Text('Album'),
-            ),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('Phone'),
-            ),
-            ListTile(
-              leading: Icon(Icons.map),
-              title: Text('Map'),
-            ),
-            ListTile(
-              leading: Icon(Icons.photo_album),
-              title: Text('Album'),
-            ),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('Phone'),
-            ),
-            ListTile(
-              leading: Icon(Icons.map),
-              title: Text('Map'),
-            ),
-            ListTile(
-              leading: Icon(Icons.photo_album),
-              title: Text('Album'),
-            ),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('Phone'),
-            ),
-          ],
+      backgroundColor: const Color.fromARGB(255, 130, 130, 130),
+      appBar: AppBar(
+        title: const Text(
+          "Notes page",
         ),
+        titleTextStyle: const TextStyle(
+          fontSize: 24,
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+        ),
+        backgroundColor: Colors.black,
+      ),
+      body: Expanded(
+        child: Container(
+          margin: const EdgeInsets.all(16),
+          height: MediaQuery.sizeOf(context).height,
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int index) {
+              return null;
+            },
+          ),
+        ),
+      ),
+      floatingActionButton: SpeedDial(
+        animatedIcon: AnimatedIcons.menu_close,
+        overlayColor: Colors.grey,
+        overlayOpacity: 0.5,
+        children: [
+          SpeedDialChild(
+            backgroundColor: Colors.green,
+            labelBackgroundColor: Colors.green,
+            child: const Icon(Icons.create),
+            label: 'Create',
+            onTap: () => {},
+          ),
+          SpeedDialChild(
+            backgroundColor: Colors.yellow,
+            labelBackgroundColor: Colors.yellow,
+            child: const Icon(Icons.update),
+            label: 'Update',
+            onTap: () => {},
+          ),
+          SpeedDialChild(
+            backgroundColor: Colors.red,
+            labelBackgroundColor: Colors.red,
+            child: const Icon(Icons.delete),
+            label: 'Delete',
+            onTap: () => {},
+          ),
+        ],
+        child: const Icon(Icons.add),
       ),
     );
   }

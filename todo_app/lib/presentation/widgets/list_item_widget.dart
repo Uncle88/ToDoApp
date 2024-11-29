@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/presentation/common/app_colors.dart';
-import 'package:todo_app/presentation/common/models/item_model.dart';
 
 class ListItemWidget extends StatelessWidget {
   const ListItemWidget(
