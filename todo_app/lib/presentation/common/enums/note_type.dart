@@ -1,0 +1,4 @@
+enum NoteType {
+  base,
+  important,
+}
